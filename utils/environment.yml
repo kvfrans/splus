@@ -1,0 +1,19 @@
+name: ranklearn
+channels:
+    - defaults
+dependencies:
+    - python=3.10
+    - pip
+    - numpy
+    - scipy
+    - h5py
+    - matplotlib
+    - scikit-learn
+    - jupyter
+    - tqdm
+    - seaborn
+    - mesalib
+    - glew
+    - glfw
+    - Cython<3
+    - conda-forge::opencv
