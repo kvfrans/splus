@@ -14,7 +14,7 @@ We provide single-file implementations of SPlus in both JAX and Torch. See `opta
 ### JAX instructions
 
 Put the `splus.py` file in your project directory. Then you can simply replace `optax.adamw` with `splus`:
-```{python}
+```python
 # Replace the optax Adam:
 import optax
 tx = optax.adamw(learning_rate=lr_schedule, b1=0.9, b2=0.95, weight_decay=0.001, mask=weight_decay_mask)
@@ -25,7 +25,7 @@ tx = splus(learning_rate=lr_schedule, b1=0.9, b2=0.95, weight_decay=0.001, mask=
 ```
 > [!IMPORTANT] 
 > SPlus uses a **different set of evaluation parameters** than during training. To support this, it is important to use the helper function `splus_get_eval_params`:
-```
+```python
 splus_state = train_state.opt_state[0]
 train_state_eval = train_state.replace(params=splus_get_eval_params(splus_state))
 get_validation_loss(train_state_eval)
@@ -35,7 +35,7 @@ Change your LR as described in the LR section. See `optax/train.py` for an examp
 ## Pytorch instructions
 
 Put the `splus.py` file in your project directory. Then you can simply replace `optax.adamw` with `splus`:
-```{python}
+```python
 # Replace the torch Adam:
 optimizer = torch.optim.AdamW(optim_groups, lr=learning_rate, betas=(beta1, beta2), weight_decay=weight_decay)
 
@@ -45,7 +45,7 @@ optimizer = SPlus(optim_groups, lr=learning_rate, b1=beta1, b2=beta2, weight_dec
 ```
 > [!IMPORTANT] 
 > Important: SPlus uses a **different set of evaluation parameters** than during training. To support this, use the helper functions `optimizer.eval()` and `optimizer.train()`
-```
+```python
 # Training step
 optimizer.train() # New in SPlus: Include this!
 model.train()
@@ -64,11 +64,11 @@ Change your LR as described in the LR section. See `torch/train.py` for an examp
 > [!IMPORTANT] 
 > SPlus uses a different learning rate scale than Adam, so you need to change your learning rate.
 If you already have a tuned Adam implementation, then use the following formula for a rough LR:
-```
+```python
 splus_lr = adam_lr * (network hidden size) * 2
 ```
 Alternatively, for training common transformer models, you can try a simple:
-```
+```python 
 splus_lr = 0.2
 ```
 Of course, please do a proper initial sweep as the optimal LR depends on batch size, data complexity, etc.
