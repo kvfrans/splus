@@ -253,7 +253,7 @@ if optimizer_name == 'splus':
                       weight_decay=weight_decay
                       )
 elif optimizer_name == 'adam':
-    optimizer = torch.optim.AdamW(optim_groups, lr=learning_rate, betas=(beta1, beta2))
+    optimizer = torch.optim.AdamW(optim_groups, lr=learning_rate, betas=(beta1, beta2), weight_decay=weight_decay)
 
 if init_from == 'resume':
     optimizer.load_state_dict(checkpoint['optimizer'])

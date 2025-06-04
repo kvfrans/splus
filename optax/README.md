@@ -12,13 +12,3 @@ python test_splus.py --train.dataset_name openwebtext --wandb.project splus_opta
 ```
 
 Note, *this is not the training script we use in the paper.* This folder is just to provide an example of how to use SPlus with Optax. For the exact experimental script, see `experiments/` from the base of the repo. 
-
-**How do I choose the learning rate?** If you already have a tuned Adam implementation, then use the following formula for a rough LR:
-```
-splus_lr = adam_lr * (network hidden size) * 2
-```
-Alternatively, for training common transformer models, you can try a simple:
-```
-splus_lr = 0.2
-```
-SPlus learning rates transfer across network width, so `0.2` is a reasonable starting point regardless of your architecture. Of course, please do a proper sweep as the optimal LR depends on batch size, data complexity, etc.
