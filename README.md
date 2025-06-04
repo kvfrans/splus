@@ -6,6 +6,8 @@ In our experiments, SPlus matches the performance of Adam with **44%** of the gr
 
 For more details on the algorithm, read the paper: [ArXiv Link Todo].
 
+![mainfig](fig.png)
+
 ## How do I use SPlus in my existing training setup?
 We provide single-file implementations of SPlus in both JAX and Torch. See `optax/splus.py` and `torch/splus.py`. We designed things to be easily plug-and-play, but <ins>please follow the following instructions. You will need to add a line to evaluate with the EMA parameters, and you will need to adjust your LR.<ins>
 
