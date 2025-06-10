@@ -4,7 +4,7 @@ This work introduces **SPlus**, a new optimizer for neural network training. We 
 
 In our experiments, SPlus matches the performance of Adam with **44%** of the gradient steps, and **62%** of the wall-clock time. We tested on language modelling, diffusion modelling, and image classification objective; all using a standard Transformer architecture. Please give SPlus a try on your problem setting.
 
-For more details on the algorithm, read the paper: [ArXiv Link Todo].
+For more details on the algorithm, read the paper: [[https://arxiv.org/abs/2506.07254](https://arxiv.org/abs/2506.07254)].
 
 ![mainfig](fig.png)
 
