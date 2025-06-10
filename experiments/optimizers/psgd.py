@@ -1,3 +1,4 @@
+"""From https://github.com/evanatyourservice/psgd_jax"""
 from typing import Any, List, Optional, Union, Callable
 from functools import partial
 import string
