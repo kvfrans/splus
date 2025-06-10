@@ -1,3 +1,4 @@
+"""From https://github.com/google-deepmind/optax/blob/main/optax/contrib/_muon.py"""
 from typing import Any, Callable, NamedTuple, Optional, Union
 
 import chex
