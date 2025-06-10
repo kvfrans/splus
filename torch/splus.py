@@ -45,7 +45,6 @@ class SPlus(Optimizer):
                 train_mode = group['train_mode']
                 ema_rate = group['ema_rate']
                 if train_mode:
-                    print("Switching to eval mode.")
                     for p in group['params']:
                         state = self.state[p]
                         state['param_buffer'] = p.clone()
@@ -59,12 +58,10 @@ class SPlus(Optimizer):
             if 'train_mode' in group:
                 train_mode = group['train_mode']
                 if not train_mode:
-                    print("Switching to train mode.")
                     for p in group['params']:
                         state = self.state[p]
                         if 'param_buffer' in state:
-                            # p.copy_(state['param_buffer'])
-                            p.lerp_(state['param_buffer'], 1)
+                            p.lerp_(state['param_buffer'], 1) # p.copy_(state['param_buffer'])
                             del state['param_buffer']
                     group['train_mode'] = True
 
@@ -94,7 +91,7 @@ class SPlus(Optimizer):
                 if len(p.shape) != 2 or p.shape[0] > group['max_dim'] or p.shape[1] > group['max_dim']:
                     scaled_lr = group['lr'] * group['nonstandard_constant']
                 else:
-                    scaled_lr = group['lr'] * (1 / (p.shape[0] + p.shape[1])/2)
+                    scaled_lr = group['lr'] * (2 / (p.shape[0] + p.shape[1]))
 
                 # Main splus update
                 state['step'] += 1
@@ -109,6 +106,7 @@ class SPlus(Optimizer):
                     u = state['q_sides'][0] @ u if state['q_sides'][0] is not None else u
                     u = u @ state['q_sides'][1].T if state['q_sides'][1] is not None else u
 
+                    # Every `inverse_every` steps, we update the inverse eigendecomposition.
                     if state['step'] == 1 or state['step'] % group['inverse_every'] == 0:
                         if state['sides'][0] is not None:
                             _, eigvecs = torch.linalg.eigh(state['sides'][0] + group['eps'] * torch.eye(state['sides'][0].shape[0], device=p.device))

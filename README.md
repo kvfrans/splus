@@ -72,6 +72,7 @@ Alternatively, for training common transformer models, you can try a simple:
 splus_lr = 0.2
 ```
 Of course, please do a proper initial sweep as the optimal LR depends on batch size, data complexity, etc.
+
 SPlus learning rates are consistent across network width. When you scale up your network size, you can use the same LR.
 
 

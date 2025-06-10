@@ -105,7 +105,6 @@ def splus(
         # Rotate to eigenbasis, take sign, unrotate.
         momentum = jax.tree_map(lambda m, g: b1 * m + (1 - b1) * g, state.momentum, grads)
         momentum_rot = jax.tree_map(rot, momentum, state.q_sides)
-        # momentum_rot_hat = jax.tree_map(lambda m: m / (1 - b1 ** step), momentum_rot)
         updates_rot = jax.tree_map(lambda m: jnp.sign(m), momentum_rot)
         updates = jax.tree_map(unrot, updates_rot, state.q_sides)
         sides = jax.tree_map(update_sides, grads, state.sides)
@@ -121,7 +120,7 @@ def splus(
         def shape_scale(path, u):
             path_str = '/'.join([p.key for p in path])
             if len(u.shape) == 2 and not any([k in path_str.lower() for k in nonstandard_strings]) and u.shape[0] < max_dim and u.shape[1] < max_dim:
-                scale = (1 / (u.shape[0] + u.shape[1])/2)
+                scale = (2 / (u.shape[0] + u.shape[1]))
             else:
                 scale = nonstandard_constant
             return u * scale

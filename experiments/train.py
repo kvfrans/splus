@@ -79,7 +79,7 @@ model_config = ml_collections.ConfigDict({
     'optimizer': 'adam',
     'optimizer_freq': 100,
     'splus_constant': 0.001,
-    'do_scaling': 1,
+    'do_scaling': 0,
     'scaling_type': 'first',
     # Diffusion options
     'class_dropout_prob': 0.1,
