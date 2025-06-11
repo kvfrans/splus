@@ -42,7 +42,6 @@ from optimizers.sophia import make_sophia
 from optimizers.muon import make_muon
 from optimizers.psgd import make_psgd
 from optimizers.splus import make_splus
-from optimizers.soap_custom import make_soap_custom
 
 FLAGS = flags.FLAGS
 flags.DEFINE_string('dataset_name', 'imagenet256', 'Environment name.')
